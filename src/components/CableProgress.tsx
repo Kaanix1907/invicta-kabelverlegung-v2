@@ -19,13 +19,18 @@ export default function CableProgress() {
   }, []);
 
   return (
-    <div className="cable-progress" aria-hidden="true">
-      <div className="cp-node" />
-      <div className="cp-track">
-        <div className="cp-fill" ref={fillRef} />
-        <div className="cp-electron" />
+    <>
+      <div className="cable-progress cable-progress-desktop" aria-hidden="true">
+        <div className="cp-node" />
+        <div className="cp-track">
+          <div className="cp-fill" ref={fillRef} />
+          <div className="cp-electron" />
+        </div>
+        <div className="cp-node" />
       </div>
-      <div className="cp-node" />
-    </div>
+      <style>{`
+        @media (max-width: 768px) { .cable-progress-desktop { display: none !important; } }
+      `}</style>
+    </>
   );
 }
