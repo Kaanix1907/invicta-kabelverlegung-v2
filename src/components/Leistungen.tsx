@@ -37,25 +37,25 @@ function LeistungCard({ item, index }: { item: (typeof LEISTUNGEN)[0]; index: nu
       transition={{ duration: 0.6, delay: index * 0.12, ease: [0.4, 0, 0.2, 1] }}
       style={{
         position: 'relative',
-        background: 'var(--dark-3)',
-        border: '1px solid var(--border-2)',
-        borderRadius: '12px',
+        background: 'var(--dark-4)',
+        border: '1px solid rgba(255,255,255,0.1)',
+        borderRadius: '14px',
         padding: '2rem',
         overflow: 'hidden',
-        boxShadow: 'var(--shadow-card)',
+        boxShadow: '0 2px 8px rgba(0,0,0,0.5), 0 16px 40px rgba(0,0,0,0.35)',
         transition: 'border-color 0.3s, box-shadow 0.3s, transform 0.3s',
         cursor: 'default',
       }}
       onMouseEnter={(e) => {
         const el = e.currentTarget;
-        el.style.borderColor = 'rgba(27,106,255,0.3)';
-        el.style.boxShadow = 'var(--shadow-card), 0 0 32px rgba(27,106,255,0.08)';
-        el.style.transform = 'translateY(-4px)';
+        el.style.borderColor = 'rgba(27,106,255,0.45)';
+        el.style.boxShadow = '0 2px 8px rgba(0,0,0,0.5), 0 16px 40px rgba(0,0,0,0.35), 0 0 40px rgba(27,106,255,0.12)';
+        el.style.transform = 'translateY(-5px)';
       }}
       onMouseLeave={(e) => {
         const el = e.currentTarget;
-        el.style.borderColor = 'var(--border-2)';
-        el.style.boxShadow = 'var(--shadow-card)';
+        el.style.borderColor = 'rgba(255,255,255,0.1)';
+        el.style.boxShadow = '0 2px 8px rgba(0,0,0,0.5), 0 16px 40px rgba(0,0,0,0.35)';
         el.style.transform = '';
       }}
     >
@@ -77,15 +77,16 @@ function LeistungCard({ item, index }: { item: (typeof LEISTUNGEN)[0]; index: nu
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '1.25rem' }}>
           <div
             style={{
-              width: '48px',
-              height: '48px',
-              background: 'rgba(27,106,255,0.12)',
-              border: '1px solid rgba(27,106,255,0.25)',
-              borderRadius: '10px',
+              width: '52px',
+              height: '52px',
+              background: 'rgba(27,106,255,0.18)',
+              border: '1px solid rgba(27,106,255,0.4)',
+              borderRadius: '12px',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
-              color: 'var(--electric)',
+              color: '#5B9DFF',
+              boxShadow: '0 0 16px rgba(27,106,255,0.2)',
             }}
           >
             {icons[item.icon]}

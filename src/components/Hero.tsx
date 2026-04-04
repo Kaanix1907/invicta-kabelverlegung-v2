@@ -59,8 +59,8 @@ function useElectronCanvas(canvasRef: React.RefObject<HTMLCanvasElement | null>)
           : 1;
 
         ctx.beginPath();
-        ctx.arc(p.x, p.y, 1.2, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(27, 106, 255, ${alpha * 0.6})`;
+        ctx.arc(p.x, p.y, 1.5, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(91, 157, 255, ${alpha * 0.85})`;
         ctx.fill();
 
         // Connect nearby particles
@@ -69,8 +69,8 @@ function useElectronCanvas(canvasRef: React.RefObject<HTMLCanvasElement | null>)
           const dx = p.x - q.x;
           const dy = p.y - q.y;
           const dist = Math.sqrt(dx * dx + dy * dy);
-          if (dist < 80) {
-            const lineAlpha = (1 - dist / 80) * alpha * 0.15;
+          if (dist < 100) {
+            const lineAlpha = (1 - dist / 100) * alpha * 0.25;
             ctx.beginPath();
             ctx.moveTo(p.x, p.y);
             ctx.lineTo(q.x, q.y);
@@ -314,18 +314,18 @@ export default function Hero() {
           initial="hidden"
           animate="visible"
           variants={fadeLeft}
-          style={{ flex: '0 0 auto', display: 'flex', flexDirection: 'column', gap: '1.25rem', alignItems: 'center' }}
+          style={{ flex: '0 0 320px', display: 'flex', flexDirection: 'column', gap: '1.25rem', alignItems: 'center' }}
           className="hero-visual-side"
         >
           <div
             style={{
               position: 'relative',
-              width: '220px',
-              height: '220px',
-              background: 'rgba(17,19,24,0.8)',
-              border: '1px solid var(--border-2)',
+              width: '280px',
+              height: '280px',
+              background: 'rgba(17,19,24,0.85)',
+              border: '1px solid rgba(27,106,255,0.2)',
               borderRadius: '50%',
-              boxShadow: 'var(--shadow-float)',
+              boxShadow: '0 0 0 1px rgba(27,106,255,0.1), 0 8px 40px rgba(0,0,0,0.6), 0 0 80px rgba(27,106,255,0.1)',
               display: 'flex',
               flexDirection: 'column',
               alignItems: 'center',
@@ -335,7 +335,7 @@ export default function Hero() {
             <svg
               viewBox="0 0 200 200"
               xmlns="http://www.w3.org/2000/svg"
-              style={{ width: '200px', height: '200px' }}
+              style={{ width: '260px', height: '260px' }}
             >
               <defs>
                 <filter id="glow-conductor">
@@ -405,7 +405,7 @@ export default function Hero() {
               border: '1px solid var(--border-2)',
               borderRadius: '8px',
               overflow: 'hidden',
-              width: '220px',
+              width: '280px',
             }}
           >
             {HERO.cableSpecs.map((spec, i) => (
