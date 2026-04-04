@@ -1,26 +1,272 @@
 @import "tailwindcss";
 
+/* ============================================================
+   INVICTA KABELVERLEGUNG — Global Styles
+   Theme: Dark Electric · Cable Animations
+   ============================================================ */
+
+@property --card-angle {
+  syntax: '<angle>';
+  initial-value: 0deg;
+  inherits: false;
+}
+
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --black:      #060709;
+  --dark-1:     #0C0E12;
+  --dark-2:     #111318;
+  --dark-3:     #171A20;
+  --dark-4:     #1E2128;
+  --mid:        #2E3240;
+  --gray:       #525A6E;
+  --gray-lt:    #8890A4;
+  --off-white:  #E4EAF5;
+  --white:      #FFFFFF;
+
+  --electric:   #1B6AFF;
+  --current:    #00CFFF;
+  --live:       #00E87A;
+
+  --glow-blue:  rgba(27, 106, 255, 0.35);
+  --glow-cyan:  rgba(0, 207, 255, 0.25);
+
+  --border:     rgba(255,255,255,0.05);
+  --border-2:   rgba(255,255,255,0.09);
+  --border-3:   rgba(255,255,255,0.15);
+
+  --text:       var(--off-white);
+  --text-muted: var(--gray-lt);
+
+  --ease:       cubic-bezier(0.4, 0, 0.2, 1);
+
+  --shadow-card:  0 2px 4px rgba(0,0,0,0.5), 0 8px 24px rgba(0,0,0,0.4), 0 32px 64px rgba(0,0,0,0.3);
+  --shadow-blue:  0 0 0 1px rgba(27,106,255,0.3), 0 4px 16px rgba(27,106,255,0.35), 0 16px 48px rgba(27,106,255,0.20);
+  --shadow-float: 0 2px 8px rgba(0,0,0,0.5), 0 12px 32px rgba(0,0,0,0.4), 0 32px 64px rgba(0,0,0,0.3);
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+/* ============================================================
+   KEYFRAMES
+   ============================================================ */
+
+@keyframes armor-dash     { to { stroke-dashoffset: -18; } }
+@keyframes screen-dash    { to { stroke-dashoffset: 12; } }
+@keyframes conductor-glow {
+  0%, 100% { stroke: rgba(27,106,255,0.7); filter: drop-shadow(0 0 3px rgba(27,106,255,0.5)); }
+  50%       { stroke: rgba(0,207,255,1);   filter: drop-shadow(0 0 10px rgba(0,207,255,0.9)); }
+}
+@keyframes core-pulse {
+  0%, 100% { fill: #1B6AFF; filter: drop-shadow(0 0 4px rgba(27,106,255,0.9)); }
+  50%       { fill: #80CFFF; filter: drop-shadow(0 0 14px rgba(0,207,255,1)); }
+}
+@keyframes live-blink {
+  0%, 100% { opacity: 1; box-shadow: 0 0 0 0 rgba(0,232,122,0.6); }
+  50%       { opacity: 0.7; box-shadow: 0 0 0 5px rgba(0,232,122,0); }
+}
+@keyframes stat-pulse-ring {
+  0%   { transform: scale(0.8); opacity: 0.8; }
+  100% { transform: scale(2.2); opacity: 0; }
+}
+@keyframes card-border-rotate { to { --card-angle: 360deg; } }
+@keyframes electron-travel {
+  0%   { top: 0%; opacity: 0; }
+  5%   { opacity: 1; }
+  95%  { opacity: 1; }
+  100% { top: 100%; opacity: 0; }
+}
+@keyframes sc-pulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(27,106,255,0.6); }
+  50%       { box-shadow: 0 0 0 6px rgba(27,106,255,0); }
+}
+@keyframes grain-shift {
+  0%, 100% { transform: translate(0, 0); }
+  25%       { transform: translate(-2px, 1px); }
+  50%       { transform: translate(1px, -2px); }
+  75%       { transform: translate(2px, 1px); }
+}
+@keyframes float-badge {
+  0%, 100% { transform: translateY(0); }
+  50%       { transform: translateY(-6px); }
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+/* ============================================================
+   BASE
+   ============================================================ */
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 72px;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--dark-1);
+  color: var(--text);
+  line-height: 1.7;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ============================================================
+   CABLE SVG CLASSES
+   ============================================================ */
+
+.cc-jacket {
+  fill: none;
+  stroke: var(--mid);
+  stroke-width: 5;
+}
+.cc-armor {
+  fill: none;
+  stroke: var(--gray);
+  stroke-width: 2;
+  stroke-dasharray: 6 3;
+  animation: armor-dash 1.2s linear infinite;
+}
+.cc-screen {
+  fill: none;
+  stroke: var(--gray-lt);
+  stroke-width: 1.5;
+  stroke-dasharray: 4 4;
+  animation: screen-dash 0.9s linear infinite;
+}
+.cc-insulation {
+  fill: rgba(27, 106, 255, 0.07);
+  stroke: rgba(27, 106, 255, 0.25);
+  stroke-width: 1;
+}
+.cc-semi {
+  fill: rgba(27, 106, 255, 0.12);
+  stroke: rgba(27, 106, 255, 0.35);
+  stroke-width: 1;
+}
+.cc-conductor {
+  fill: none;
+  stroke: rgba(27, 106, 255, 0.8);
+  stroke-width: 1.5;
+  animation: conductor-glow 2s ease-in-out infinite;
+}
+.cc-core {
+  animation: core-pulse 2s ease-in-out infinite;
+}
+
+/* ============================================================
+   SCROLL CABLE PROGRESS
+   ============================================================ */
+
+.cable-progress {
+  position: fixed;
+  right: 20px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 4px;
+  height: 40vh;
+  z-index: 100;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.cp-node {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--electric);
+  box-shadow: 0 0 8px var(--glow-blue);
+  flex-shrink: 0;
+}
+.cp-track {
+  flex: 1;
+  width: 3px;
+  background: var(--mid);
+  border-radius: 2px;
+  position: relative;
+  overflow: hidden;
+}
+.cp-fill {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  background: linear-gradient(to bottom, var(--electric), var(--current));
+  transition: height 0.1s linear;
+  height: 0%;
+  box-shadow: 0 0 8px var(--glow-blue);
+}
+.cp-electron {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--current);
+  box-shadow: 0 0 8px var(--glow-cyan), 0 0 16px var(--current);
+  animation: electron-travel 2s linear infinite;
+}
+
+/* ============================================================
+   GRAIN TEXTURE
+   ============================================================ */
+
+.hero-grain {
+  position: absolute;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
+  background-size: 180px 180px;
+  opacity: 0.04;
+  pointer-events: none;
+  animation: grain-shift 8s steps(1) infinite;
+}
+
+/* ============================================================
+   LEISTUNG CARD — rotating border
+   ============================================================ */
+
+.leistung-card-border {
+  animation: card-border-rotate 4s linear infinite;
+  background: conic-gradient(from var(--card-angle), transparent 80%, rgba(27,106,255,0.6) 90%, transparent 100%);
+}
+
+/* ============================================================
+   STAT PULSE
+   ============================================================ */
+
+.stat-pulse-ring {
+  animation: stat-pulse-ring 2s cubic-bezier(0.455, 0.03, 0.515, 0.955) infinite;
+}
+
+/* ============================================================
+   LIVE DOT
+   ============================================================ */
+
+.live-blink {
+  animation: live-blink 1.5s ease-in-out infinite;
+}
+
+/* ============================================================
+   SECTION CONNECTOR
+   ============================================================ */
+
+.sc-node {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--electric);
+  flex-shrink: 0;
+  animation: sc-pulse 2.5s ease-in-out infinite;
+}
+.sc-line {
+  stroke: var(--mid);
+  stroke-width: 1.5;
+  fill: none;
+  stroke-dasharray: 4 4;
+}
+
+/* ============================================================
+   BADGE FLOAT
+   ============================================================ */
+
+.badge-float {
+  animation: float-badge 3s ease-in-out infinite;
 }
